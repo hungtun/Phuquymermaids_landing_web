@@ -432,7 +432,7 @@ window.addEventListener("scroll", () => {
 
 // Paste your Google Apps Script Web App URL here after deploying (see google-apps-script/Code.gs)
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzNdIa18dJzI4P7hFbhEh1ypBP6w5OUKO8mCZiRvaT-PgxKuDnd2JSnF1R5FF7365Eb/exec";
+  "https://script.google.com/macros/s/AKfycbxxips7M4KKmthGlJnVW1u2yqU6XCZR5DJMXJh4hYsZzaWLPP28jiuTYl4Yx3VDPZ4/exec";
 
 // Form submission handler
 const contactForm = document.getElementById("contactForm");
@@ -484,7 +484,7 @@ const observer = new IntersectionObserver((entries) => {
 // Observe elements for animation
 document.addEventListener("DOMContentLoaded", () => {
   const animateElements = document.querySelectorAll(
-    ".tour-card, .feature-item, .about-text, .gallery-item, .included-card, .itinerary-card"
+    ".tour-card, .feature-item, .about-text, .gallery-item, .included-card, .itinerary-card",
   );
   animateElements.forEach((el) => {
     el.style.opacity = "0";

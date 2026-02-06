@@ -285,23 +285,36 @@ if (heroImageLayer && HERO_IMAGES.length > 0) {
 
     let heroIndex = 0;
 
-    function updateHeroImages() {
+    function updateHeroImagesWithPreload() {
+        // Preload all 4 images, then swap once all are loaded
+        let loadedCount = 0;
+
         for (let i = 0; i < visibleCount; i++) {
             const idx = (heroIndex + i) % HERO_IMAGES.length;
-            imageEls[i].src = HERO_IMAGES[idx];
-            imageEls[i].alt = `Hero photo ${idx + 1}`;
+            const imgPath = HERO_IMAGES[idx];
+
+            const preloader = new Image();
+            preloader.onload = () => {
+                imageEls[i].src = imgPath;
+                imageEls[i].alt = `Hero photo ${idx + 1}`;
+                loadedCount += 1;
+                if (loadedCount === visibleCount) {
+                    heroImageLayer.style.opacity = 1;
+                }
+            };
+            preloader.src = imgPath;
         }
     }
 
-    updateHeroImages();
+    // Initial load
+    updateHeroImagesWithPreload();
 
     setInterval(() => {
         // Fade out whole layer, then update all 4 images together
         heroImageLayer.style.opacity = 0;
+        heroIndex = (heroIndex + visibleCount) % HERO_IMAGES.length; // nhảy 4 ảnh mỗi lần
         setTimeout(() => {
-            heroIndex = (heroIndex + 1) % HERO_IMAGES.length;
-            updateHeroImages();
-            heroImageLayer.style.opacity = 1;
+            updateHeroImagesWithPreload();
         }, 400);
     }, 6000);
 }

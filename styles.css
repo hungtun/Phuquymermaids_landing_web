@@ -158,6 +158,14 @@ body {
     z-index: 1;
 }
 
+@media (max-width: 600px) {
+    .hero {
+        background-image: url('static/hero_images/temp_image_058B2C99-8464-439E-B30A-60BF14BBF353.WEBP');
+        background-size: cover;
+        background-position: center;
+    }
+}
+
 .hero-image-layer {
     position: absolute;
     top: 0;
@@ -182,9 +190,7 @@ body {
 
 @media (max-width: 600px) {
     .hero-image-layer {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 90px 12px 0;
-        gap: 6px;
+        display: none; /* use single background image on very small screens */
     }
 }
 

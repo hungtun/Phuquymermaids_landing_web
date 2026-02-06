@@ -433,8 +433,7 @@ window.addEventListener("scroll", () => {
 // Paste your Google Apps Script Web App URL here after deploying (see google-apps-script/Code.gs)
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbzNdIa18dJzI4P7hFbhEh1ypBP6w5OUKO8mCZiRvaT-PgxKuDnd2JSnF1R5FF7365Eb/exec";
-const GOOGLE_SCRIPT_ID =
-  "AKfycbxWxLV9zpkT4RymF2IyxskOHpT4ue1qDK2Br5BeLcIMaMJ1xgxonSp8XzLso9KBZJk";
+
 // Form submission handler
 const contactForm = document.getElementById("contactForm");
 
@@ -450,21 +449,21 @@ if (contactForm) {
       translations.en.formSuccess;
 
     if (GOOGLE_SCRIPT_URL) {
-      this.action = GOOGLE_SCRIPT_URL;
-      this.target = "_blank";
-      this.submit();
+      const formData = new FormData(this);
+      // Use fetch with no-cors so we do not navigate or open a new tab
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData,
+      }).catch((error) => {
+        // Optional: log error for debugging; user still sees success message
+        console.error("Error submitting contact form:", error);
+      });
     }
 
     alert(msg);
     this.reset();
   });
-}
-
-// Set minimum date for date input to today
-const dateInput = document.getElementById("date");
-if (dateInput) {
-  const today = new Date().toISOString().split("T")[0];
-  dateInput.setAttribute("min", today);
 }
 
 // Intersection Observer for fade-in animations
